@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Heart Disease Risk Prediction using Logistic Regression with Explainable AI and IoT Integration. Get your heart health assessed instantly.">
+    <title>HeartGuard AI — Heart Disease Risk Prediction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="bg-particles" id="bgParticles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#heartGrad)"/>
+                        <defs>
+                            <linearGradient id="heartGrad" x1="2" y1="3" x2="22" y2="21">
+                                <stop offset="0%" stop-color="#ff6b6b"/>
+                                <stop offset="100%" stop-color="#ee5a24"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="logo-text">HeartGuard <span class="logo-ai">AI</span></h1>
+                    <p class="logo-subtitle">Explainable Heart Disease Risk Prediction</p>
+                </div>
+            </div>
+            <div class="header-badge">
+                <span class="badge-dot"></span>
+                <span>Powered by Logistic Regression + SHAP</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Input Section -->
+        <section class="input-section" id="inputSection">
+            <div class="section-header">
+                <h2>Patient Health Parameters</h2>
+                <p>Fill in the mandatory fields marked with <span class="required-star">*</span> — optional fields will use safe defaults if left empty.</p>
+            </div>
+
+            <form id="predictionForm" class="prediction-form">
+                <div class="form-grid">
+                    <!-- Age -->
+                    <div class="form-group">
+                        <label for="age">Age <span class="required-star">*</span></label>
+                        <input type="number" id="age" name="age" min="18" max="100" placeholder="e.g. 55" required>
+                        <span class="field-hint">Years (18-100)</span>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="form-group">
+                        <label for="sex">Gender <span class="required-star">*</span></label>
+                        <select id="sex" name="sex" required>
+                            <option value="" disabled selected>Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <!-- Chest Pain Type -->
+                    <div class="form-group">
+                        <label for="cp">Chest Pain Type <span class="required-star">*</span></label>
+                        <select id="cp" name="cp" required>
+                            <option value="" disabled selected>Select type</option>
+                            <option value="typical angina">Typical Angina</option>
+                            <option value="atypical angina">Atypical Angina</option>
+                            <option value="non-anginal">Non-Anginal Pain</option>
+                            <option value="asymptomatic">Asymptomatic</option>
+                        </select>
+                    </div>
+
+                    <!-- Resting BP -->
+                    <div class="form-group">
+                        <label for="trestbps">Resting Blood Pressure</label>
+                        <input type="number" id="trestbps" name="trestbps" min="80" max="220" placeholder="e.g. 130">
+                        <span class="field-hint">mmHg (optional, default: 130)</span>
+                    </div>
+
+                    <!-- Cholesterol -->
+                    <div class="form-group">
+                        <label for="chol">Cholesterol</label>
+                        <input type="number" id="chol" name="chol" min="100" max="600" placeholder="e.g. 240">
+                        <span class="field-hint">mg/dl (optional, default: 240)</span>
+                    </div>
+
+                    <!-- Fasting Blood Sugar -->
+                    <div class="form-group">
+                        <label for="fbs">Fasting Blood Sugar &gt; 120 mg/dl</label>
+                        <select id="fbs" name="fbs">
+                            <option value="" selected>Not specified (default: No)</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <!-- ECG Results -->
+                    <div class="form-group">
+                        <label for="restecg">ECG Results
+                            <span class="iot-badge" title="Future: Auto-fill from IoT garment">📡 IoT Ready</span>
+                        </label>
+                        <select id="restecg" name="restecg">
+                            <option value="" selected>Not specified (default: Normal)</option>
+                            <option value="normal">Normal</option>
+                            <option value="lv hypertrophy">LV Hypertrophy</option>
+                            <option value="st-t abnormality">ST-T Abnormality</option>
+                        </select>
+                    </div>
+
+                    <!-- Maximum Heart Rate -->
+                    <div class="form-group">
+                        <label for="thalch">Maximum Heart Rate
+                            <span class="iot-badge" title="Future: Auto-fill from IoT garment">📡 IoT Ready</span>
+                        </label>
+                        <input type="number" id="thalch" name="thalch" min="50" max="220" placeholder="e.g. 150">
+                        <span class="field-hint">bpm (optional, default: 150)</span>
+                    </div>
+
+                    <!-- Exercise Induced Angina -->
+                    <div class="form-group">
+                        <label for="exang">Exercise-Induced Angina</label>
+                        <select id="exang" name="exang">
+                            <option value="" selected>Not specified (default: No)</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <!-- ST Depression -->
+                    <div class="form-group">
+                        <label for="oldpeak">ST Depression (Oldpeak)</label>
+                        <input type="number" id="oldpeak" name="oldpeak" min="0" max="7" step="0.1" placeholder="e.g. 1.5">
+                        <span class="field-hint">Value 0-7 (optional, default: 0)</span>
+                    </div>
+                </div>
+
+                <!-- IoT Simulation Toggle -->
+                <div class="iot-panel">
+                    <div class="iot-info">
+                        <span class="iot-icon">🩺</span>
+                        <div>
+                            <strong>IoT Garment Simulation</strong>
+                            <p>Simulate ECG readings from a wearable device for demo purposes</p>
+                        </div>
+                    </div>
+                    <button type="button" id="simulateIoT" class="btn btn-iot">
+                        <span>Simulate ECG Data</span>
+                    </button>
+                </div>
+
+                <!-- Submit -->
+                <div class="form-actions">
+                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                        <span class="btn-text">Analyze Heart Risk</span>
+                        <span class="btn-loader" style="display:none;">
+                            <span class="spinner"></span> Analyzing...
+                        </span>
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Results Section (hidden until prediction) -->
+        <section class="results-section" id="resultsSection" style="display:none;">
+            <div class="section-header">
+                <h2>Prediction Results</h2>
+                <p>AI-powered analysis of your heart disease risk</p>
+            </div>
+
+            <!-- Risk Score Overview -->
+            <div class="results-overview">
+                <!-- Risk Gauge -->
+                <div class="risk-gauge-card glass-card">
+                    <h3>Risk Score</h3>
+                    <div class="gauge-container">
+                        <canvas id="riskGauge" width="260" height="160"></canvas>
+                        <div class="gauge-value" id="gaugeValue">0%</div>
+                    </div>
+                    <div class="risk-badge" id="riskBadge">—</div>
+                </div>
+
+                <!-- Key Explanations -->
+                <div class="explanation-card glass-card">
+                    <h3>🧠 AI Explanation</h3>
+                    <p class="explanation-subtitle">Top factors influencing your prediction</p>
+                    <ul class="explanation-list" id="explanationList">
+                        <!-- Filled dynamically -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature Contributions Chart -->
+            <div class="contributions-card glass-card">
+                <h3>📊 Feature Contributions</h3>
+                <p class="explanation-subtitle">How each factor pushed the risk score up or down</p>
+                <div class="contributions-chart" id="contributionsChart">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="recommendations-card glass-card">
+                <h3>💊 Personalized Recommendations</h3>
+                <ul class="recommendations-list" id="recommendationsList">
+                    <!-- Filled dynamically -->
+                </ul>
+            </div>
+
+            <!-- New Prediction Button -->
+            <div class="results-actions">
+                <button class="btn btn-primary" onclick="document.getElementById('resultsSection').style.display='none'; document.getElementById('inputSection').scrollIntoView({behavior:'smooth'});">
+                    New Prediction
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>HeartGuard AI — Heart Disease Risk Prediction using Logistic Regression</p>
+            <p class="footer-sub">Explainable AI (SHAP) · IoT Ready · Built for Clinical Decision Support</p>
+            <p class="footer-disclaimer">⚠️ This tool is for educational and screening purposes only. Always consult a qualified healthcare professional for medical advice.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
