@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Heart Disease Risk Prediction AI
 
 An end-to-end Machine Learning web application predicting the probability of heart disease using a Logistic Regression model with Explainable AI (SHAP concepts) and simulated IoT Garment Integration.
@@ -67,3 +68,6 @@ Currently, you can use the **Simulate ECG Data** button on the web application t
 
 ## Disclaimer
 *This tool is a prototype designed for educational purposes. It does not replace professional medical diagnosis.*
+=======
+# Heart_Disease_Risk_Prediction
+>>>>>>> 235c4180fe9f1bb52355b66b14f8b45f7f620739
